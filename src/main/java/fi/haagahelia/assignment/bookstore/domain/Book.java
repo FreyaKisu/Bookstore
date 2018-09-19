@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 
@@ -17,16 +19,19 @@ public class Book {
 		private int year;
 		private int isbn;
 		private int price;
+		@ManyToOne
+		private Category category;
 		
 		public Book() {}
 		
-		public Book(String title, String author, int year, int isbn, int price) {
+		public Book(String title, String author, int year, int isbn, int price, Category category) {
 		super();
 		this.title = title;
 		this.author = author;
 		this.year = year;
 		this.isbn = isbn;
 		this.price = price;
+		this.setCategory(category);
 	}
 
 		public String getTitle() {
@@ -71,8 +76,16 @@ public class Book {
 
 		@Override
 		public String toString() {
-			return "Book [title=" + title + ", author=" + author + ", year=" + year + ", isbn=" + isbn + ", price="
-					+ price + "]";
+			return "Book [id=" + id + ", title=" + title + ", author=" + author + ", year=" + year + ", isbn=" + isbn
+					+ ", price=" + price + ", category=" + category + "]";
+		}
+
+		public Category getCategory() {
+			return category;
+		}
+
+		public void setCategory(Category category) {
+			this.category = category;
 		}
 		
 
