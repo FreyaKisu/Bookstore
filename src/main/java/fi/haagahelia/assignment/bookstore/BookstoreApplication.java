@@ -12,6 +12,7 @@ import fi.haagahelia.assignment.bookstore.domain.BookstoreRepository;
 import fi.haagahelia.assignment.bookstore.domain.Category;
 import fi.haagahelia.assignment.bookstore.domain.CategoryRepository;
 
+
 @SpringBootApplication
 public class BookstoreApplication {
 
@@ -25,16 +26,18 @@ public class BookstoreApplication {
 	public CommandLineRunner createBookData(BookstoreRepository bookRepository, CategoryRepository categoryRepository) {
 		return (args) -> {
 			System.out.println("saving books");
-			Category mystery = new Category();
-			mystery.setName("Mystery");
-			categoryRepository.save(mystery);
-			Category horror = new Category();
-			horror.setName("Horror");
-			categoryRepository.save(horror);
-
-			bookRepository.save(new Book("ABC... how to read?", "John Doe", 1988, 99, 10, mystery));
-			bookRepository.save(new Book("ABC... learn to read or die!", "John Doe", 1988, 99, 10, horror));
-			bookRepository.save(new Book("ABC... when the server doesn't start, nervous breakdown", "John Doe", 1988, 99, 10, mystery));
+//			Category mystery = new Category();
+//			mystery.setName("Mystery");
+//			categoryRepository.save(mystery);
+//			Category horror = new Category();
+//			horror.setName("Horror");
+//			categoryRepository.save(horror);
+			
+			categoryRepository.save(new Category("Mystery"));
+			categoryRepository.save(new Category("Horror"));
+			bookRepository.save(new Book("ABC... how to read?", "John Doe", 1988, 99, 10, categoryRepository.findByName("Mystery").get(0)));
+			bookRepository.save(new Book("ABC... learn to read or die!", "John Doe", 1988, 99, 10, categoryRepository.findByName("Horror").get(0)));
+			bookRepository.save(new Book("ABC... when the server doesn't start, nervous breakdown", "John Doe", 1988, 99, 10, categoryRepository.findByName("Horror").get(0)));
 
 			log.info("fetch all books");
 			for (Book book : bookRepository.findAll()) {

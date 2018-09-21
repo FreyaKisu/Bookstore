@@ -26,17 +26,18 @@ public class BookstoreController {
 		return "booklist";
 	}
 
-	@RequestMapping(value = "/add")
-	public String addStudent(Model model) {
-		model.addAttribute("book", new Book());
-		return "addbook";
-	}
-
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String save(Book book) {
-		bookRepo.save(book);
-		return "redirect:booklist";
-	}
+    @RequestMapping(value = "/add")
+    public String addStudent(Model model){
+    	model.addAttribute("book", new Book());
+    	model.addAttribute("categories", categoryRepo.findAll());
+        return "addbook";
+    }     
+    
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String save(Book book){
+    	bookRepo.save(book);
+        return "redirect:booklist";
+    }        
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String deleteStudent(@PathVariable("id") Long bookId, Model model) {
