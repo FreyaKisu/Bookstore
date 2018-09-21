@@ -3,7 +3,7 @@
 <head>
 <title>Bookstore</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<link type="text/css" rel="stylesheet" href="css/css/bootstrap.min.css" th:href="@{css/css/bootstrap.min.css}" />
 
 </head>
 <body>
@@ -25,14 +25,15 @@
 				<td th:text="${book?.isbn}">${book.isbn}</td>
 				<td th:text="${book?.year}">${book.year}</td>
 				<td th:text="${book?.category.name}">${book.category}</td>
-				<!-- <td><a th:href="@{/delete/{id}(id=${book.id})}"><button class="btn btn-danger">Delete</button></a></td> -->
+				<td><a th:href="@{/delete/{id}(id=${book.id})}"><button class="btn btn-danger">Delete</button></a></td> 
+				<td><a th:href="@{/edit/{id}(id=${book.id})}"><button class="btn btn-default">Edit</button></a></td>
 			</tr>
 		</tbody>
 	</table>
 	<a href="/add"><button class="btn btn-success">Add Book</button> </a>  
 	<h2>Category</h2>
-	<select th:each="category: ${categories}">
-		<option value="${category.id}">${category.name}</option>
+	<select>
+		<option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
 	</select>
 </body>
 </html>

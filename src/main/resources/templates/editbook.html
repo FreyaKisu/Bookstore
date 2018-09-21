@@ -3,20 +3,26 @@
 <head>
 <title>Bookstore</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link type="text/css" rel="stylesheet" href="css/css/bootstrap.min.css" th:href="@{css/css/bootstrap.min.css}" />
 </head>
 <body>
 
         <h1>Book</h1>
 
-        <form class="form-group" action="/edit" th:action="@{/edit}" method="post">
-            <input th:type="hidden" name="id" th:field="${book.id}" />
-            <div class="form-group">
-                <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" th:field="${book.title}" />
-            </div>
-            
-            <button type="submit" class="btn btn-primary">Save</button>
-        </form>
+        <form th:object="${books}" th:action="@{../save}" action="#" method="post">
+			<input type="hidden" th:field="*{id}" class="form-control"/>
+			<input type="text" th:field="*{title}" />
+			<input type="text" th:field="*{author}" />
+			<input type="text" th:field="*{year}" />
+			<input type="text" th:field="*{isbn}" />
+			<label for="deplist">Categories</label> 
+			<select id="catlist"
+				th:field="*{category}" class="form-control">
+				<option th:each="category: ${categories}" th:value="${category.id}"
+					th:text="${category.name}"></option>
+			</select>
+			<input type="submit" class="btn btn-success" value="Save"></input>
+		</form>
 
 </body>
 </html>
