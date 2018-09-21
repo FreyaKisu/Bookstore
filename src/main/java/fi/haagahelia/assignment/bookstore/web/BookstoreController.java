@@ -29,6 +29,7 @@ public class BookstoreController {
     @RequestMapping(value = "/add")
     public String addStudent(Model model){
     	model.addAttribute("book", new Book());
+    	model.addAttribute("categories", categoryRepo.findAll());
         return "addbook";
     }     
     

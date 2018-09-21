@@ -3,6 +3,7 @@ package fi.haagahelia.assignment.bookstore.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,13 +16,16 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String name;
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
 	private List<Book> books;
 	
 	public Category() {
 		books = new ArrayList<>();
 	}
-	
+	public Category(String name) {
+		super();
+		this.name = name;
+	}
 	public long getId() {
 		return id;
 	}
