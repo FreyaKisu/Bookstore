@@ -23,6 +23,11 @@ public class BookstoreController {
 	@Autowired
 	private CategoryRepository categoryRepo;
 
+	@RequestMapping(value = "/login")
+	public String login() {
+		return "login";
+	}
+
 	@GetMapping("/booklist")
 	public String index(Model model) {
 		model.addAttribute("categories", categoryRepo.findAll());
@@ -30,18 +35,18 @@ public class BookstoreController {
 		return "booklist";
 	}
 
-    @RequestMapping(value = "/add")
-    public String addStudent(Model model){
-    	model.addAttribute("book", new Book());
-    	model.addAttribute("categories", categoryRepo.findAll());
-        return "addbook";
-    }     
-    
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(Book book){
-    	bookRepo.save(book);
-        return "redirect:booklist";
-    }        
+	@RequestMapping(value = "/add")
+	public String addStudent(Model model) {
+		model.addAttribute("book", new Book());
+		model.addAttribute("categories", categoryRepo.findAll());
+		return "addbook";
+	}
+
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public String save(Book book) {
+		bookRepo.save(book);
+		return "redirect:booklist";
+	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String deleteStudent(@PathVariable("id") Long bookId, Model model) {
@@ -50,21 +55,21 @@ public class BookstoreController {
 	}
 
 	@RequestMapping(value = "/edit/{id}")
-		public String addBook(@PathVariable("id") Long bookId, Model model){
-			model.addAttribute("books", bookRepo.findById(bookId));
-			model.addAttribute("categories", categoryRepo.findAll());
-			return "editbook";
+	public String addBook(@PathVariable("id") Long bookId, Model model) {
+		model.addAttribute("books", bookRepo.findById(bookId));
+		model.addAttribute("categories", categoryRepo.findAll());
+		return "editbook";
 	}
+
 	// RESTful service to get all books
-    @RequestMapping(value="/books", method = RequestMethod.GET)
-    public @ResponseBody List<Book> bookListRest() {	
-        return (List<Book>) bookRepo.findAll();
-    }    
+	@RequestMapping(value = "/books", method = RequestMethod.GET)
+	public @ResponseBody List<Book> bookListRest() {
+		return (List<Book>) bookRepo.findAll();
+	}
 
 	// RESTful service to get book by id
-    @RequestMapping(value="/book/{id}", method = RequestMethod.GET)
-    public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long bookId) {	
-    	return bookRepo.findById(bookId);
-    }    
+	@RequestMapping(value = "/book/{id}", method = RequestMethod.GET)
+	public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long bookId) {
+		return bookRepo.findById(bookId);
+	}
 }
-
