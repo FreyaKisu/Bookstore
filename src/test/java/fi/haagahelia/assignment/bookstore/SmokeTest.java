@@ -1,6 +1,6 @@
 package fi.haagahelia.assignment.bookstore;
 
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
